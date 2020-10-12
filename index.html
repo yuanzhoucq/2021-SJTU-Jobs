@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="dist/tui-calendar.css" />
+    <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
+    <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
+    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
+    <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
+    <title>2021 SJTU Jobs</title>
+</head>
+<body style="font-family: Calibri, 'Trebuchet MS', sans-serif;">
+    <div id="menu" style="margin: 10px;">
+        <span id="menu-navi">
+            <button id="today" type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+            <button id="prev" type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
+            Prev
+            </button>
+            <button id="next" type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
+            Next
+            </button>
+        </span>
+        <span id="renderRange" class="render-range"></span>
+    </div>
+    <div id="calendar" style="height: 820px;"></div>
+    <script>
+        var Calendar = tui.Calendar;
+        var calendar = new Calendar('#calendar', {
+            defaultView: 'week',
+            taskView: false,
+            isReadOnly: true,
+            week: {
+                narrowWeekend: true,
+                workweek: true,
+                startDayOfWeek: 1,
+                hourStart: 8,
+                hourEnd: 22
+            },
+            template: {
+                time: function(schedule) {
+                    return schedule.title + '<br>' +schedule.location;
+                }
+            }
+        });
+
+        calendar.on('clickSchedule', function(event) {
+            if (event.schedule.raw) {
+                window.open(event.schedule.raw)
+            }
+        });
+
+        document.getElementById('today').onclick = function() { calendar.today(); }
+        document.getElementById('prev').onclick = function() { calendar.prev(); }
+        document.getElementById('next').onclick = function() { calendar.next(); }
+
+        fetch('events.json').then(r => r.json()).then(events => {
+            calendar.createSchedules(events.map((e, id) => {
+                return {
+                    id: id,
+                    calendarId: id,
+                    title: e.title,
+                    category: 'time',
+                    location: e.location,
+                    start: e.start,
+                    end: e.end,
+                    raw: e.url
+                }
+            }))
+        })
+    </script>
+</body>
+</html>
