@@ -19,6 +19,9 @@
             <button id="next" type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
             Next
             </button>
+            <button id="add" type="button">
+                Add an event
+            </button>
         </span>
         <span id="renderRange" class="render-range"></span>
     </div>
@@ -52,6 +55,9 @@
         document.getElementById('today').onclick = function() { calendar.today(); }
         document.getElementById('prev').onclick = function() { calendar.prev(); }
         document.getElementById('next').onclick = function() { calendar.next(); }
+        document.getElementById('add').onclick = function() { 
+            window.open("https://github.com/yuanzhoucq/2021-SJTU-Jobs/blob/master/events.json")
+         }
 
         fetch('events.json').then(r => r.json()).then(events => {
             calendar.createSchedules(events.map((e, id) => {
