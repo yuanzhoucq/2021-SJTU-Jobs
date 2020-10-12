@@ -57,7 +57,7 @@
         document.getElementById('next').onclick = function() { calendar.next(); }
         document.getElementById('add').onclick = function() { 
             window.open("https://github.com/yuanzhoucq/2021-SJTU-Jobs/blob/master/events.json")
-         }
+        }
 
         fetch('events.json').then(r => r.json()).then(events => {
             calendar.createSchedules(events.map((e, id) => {
