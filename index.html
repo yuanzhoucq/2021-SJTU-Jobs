@@ -4,8 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="dist/tui-calendar.css" />
     <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
-    <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
-    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
     <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
     <title>2021 SJTU Jobs</title>
 </head>
@@ -33,6 +31,10 @@
             taskView: false,
             isReadOnly: true,
             useDetailPopup: true,
+            theme: {
+                'week.daygridLeft.width': '38px',
+                'week.timegridLeft.width': '38px'
+            },
             week: {
                 narrowWeekend: true,
                 workweek: true,
