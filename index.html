@@ -29,6 +29,7 @@
             <button id="add" type="button">
                 Add an event
             </button>
+            <button id="toggleView" type="button">Daily view</button>
         </span>
         <span id="renderRange" class="render-range"></span>
     </div>
@@ -69,6 +70,17 @@
         document.getElementById('next').onclick = function() { calendar.next(); }
         document.getElementById('add').onclick = function() { 
             window.open("https://github.com/yuanzhoucq/2021-SJTU-Jobs/blob/master/events.json")
+        }
+        
+        document.getElementById('toggleView').onclick = function() { 
+            let toggleViewBtn = document.getElementById('toggleView')
+            if (toggleViewBtn.textContent === 'Daily view') {
+                calendar.changeView('day', true)
+                toggleViewBtn.textContent = 'Weekly view'
+            } else {
+                calendar.changeView('week', true)
+                toggleViewBtn.textContent = 'Daily view'
+            }
         }
 
         fetch('events.json').then(r => r.json()).then(events => {
